@@ -1,5 +1,7 @@
 from geopy import distance
 from airport import *
+import requests
+
 class Player:
     def __init__(self, name, difficulty, money, airport_list, airport_travelled=None, fuel=1000, hints=3, co2=0):
         if airport_travelled is None:
