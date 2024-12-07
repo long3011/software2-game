@@ -77,7 +77,7 @@ def view_leaderboard():
         if cursor.rowcount > 0:
             return output
         else:
-            return ["There is no leaderboard information",'1','2']
+            return ["There is no leaderboard information"]
     except mysql.connector.errors.DatabaseError as e:
         return {"output":e}
 def leaderboard_load(list_ident):

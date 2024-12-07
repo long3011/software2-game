@@ -1,6 +1,5 @@
 from geopy import distance
 from airport import *
-import requests
 
 class Player:
     def __init__(self, name, difficulty, money, airport_list, airport_travelled=None, fuel=1000, hints=3, co2=0):
@@ -26,6 +25,7 @@ class Player:
                 end_airport = self.airport_list[i].airport_position()
                 compare_list[i] = self.get_airport_distance(end_airport)
             nearest_airport = min(compare_list, key=compare_list.get)
+            self.hints -= 1
             return nearest_airport, self.airport_list[nearest_airport]
     def fly(self,new_pos_id):
         distance_travel = self.get_airport_distance(self.airport_list[new_pos_id].airport_position())
@@ -71,3 +71,7 @@ class Player:
         return len(self.airport_list)
     def fuel_left(self):
         return self.fuel
+    def hints_left(self):
+        return self.hints
+    def co2_emitted(self):
+        return self.co2

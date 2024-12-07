@@ -2,6 +2,7 @@ html{
     height: 100%;
     width: 100%;
     background-color: #ffc673;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 body {
     padding: 0;
@@ -18,9 +19,61 @@ body {
     justify-content: space-evenly;
         }
 header {
+    display:flex;
     width: 100%;
-    height: 10%;
+    height: 9%;
     background-color: #ffa739;
+}
+header #quit{
+    display: flex;
+    width:10%;
+    justify-content: center;
+}
+header #quit a{
+    display: flex;
+    text-align: center;
+    justify-content: space-evenly;
+}
+header #quit:hover{
+    background-color: #734e1b;
+}
+header #hint{
+    display:flex;
+    width:40%;
+    text-align: center;
+    justify-content: right;
+}
+header #hint a{
+    display: block;
+    width:20%;
+    height:100%;
+    text-align: center;
+    line-height:340%;
+}
+header #hint a:hover{
+    background-color: #734e1b;
+}
+header nav {
+    width: 50%;
+    display: flex;
+    justify-content: right;
+}
+header ul{
+    display: flex;
+    width: 40%;
+    list-style-type: none;
+    justify-content: space-evenly;
+    padding:0;
+    margin:0;
+}
+header li {
+    width:50%;
+}
+header li:hover{
+    background-color: #734e1b;
+}
+header li p {
+    text-align: center;
 }
 .container #map {
     height: 100%;
@@ -28,11 +81,17 @@ header {
     margin: 0 1rem 0 1rem;
 }
 aside {
-    display: flex;
     height: 100%;
     width: 10%;
-    background-color: #000000;
+    background-color: #00b9d3;
     justify-content: right;
+}
+aside p {
+    margin: 0 0 1rem 1rem;
+}
+aside #property{
+    margin:0 0 0 8px;
+    padding: 0;
 }
 dialog div {
     display: flex;
@@ -40,6 +99,9 @@ dialog div {
     align-items: center;
     background-color: #ffa739;
     margin:8px
+}
+dialog div:hover {
+    background-color: #734e1b;
 }
 dialog div p {
     margin: 0;
@@ -61,15 +123,39 @@ dialog[open] {
 dialog::backdrop {
   background: rgb(0 0 0 / 0.8);
 }
-.container {
-    width: 0;
-    height: 0;
+.no_screen {
+    display: none;
 }
-.mainMenu {
-    width: 0;
-    height: 0;
+#newGame{
+    font-size: 300%;
 }
-.screen {
-    width: 100%;
-    height: 100%;
+#newGame a:hover{
+    background-color: #734e1b;
+}
+#saves{
+    font-size: 300%;
+}
+#saves a:hover{
+    background-color: #734e1b;
+}
+.mainMenu #leaderboard{
+    font-size: 300%;
+}
+.mainMenu #leaderboard a:hover{
+    background-color: #734e1b;
+}
+dialog span {
+  position: absolute;
+  top: -4px;
+  right: 4px;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: #fff;
+  filter: drop-shadow(2px 2px 2px #000);
+}
+dialog #personal{
+    font-size: 300%;
+}
+dialog #leaderboard{
+    font-size: 300%;
 }
