@@ -22,7 +22,7 @@ def personal_save(obj,player_id):
         return "success"
     except FileNotFoundError:
         open('save.json', 'x')
-        return personal_save(obj)
+        return personal_save(obj,player_id)
 def personal_load():
     try:
         if os.stat("save.json").st_size != 0:
@@ -31,8 +31,9 @@ def personal_load():
             return info
         else:
             return {"1":["None"]}
-    except FileNotFoundError as e:
-        return e
+    except FileNotFoundError:
+        open('save.json', 'x')
+        return personal_load()
 def saves_load(result):
     ap_list = {}
     ap_travelled = {}
@@ -52,9 +53,9 @@ def leaderboard_save(info):
         airport_save=stuff[1]
         player_score=stuff[2]
         cursor = connection.cursor()
-        sql_save = (f"INSERT INTO list_airport (airport_list) VALUES ('{airport_save}');")
+        sql_save = f"INSERT INTO list_airport (airport_list) VALUES ('{airport_save}');"
         cursor.execute(sql_save)  # saving player information into database
-        sql_save = (f"INSERT INTO player (NAME,score,airport_seed) VALUES ('{player_name}',{player_score},LAST_INSERT_ID());")
+        sql_save = f"INSERT INTO player (NAME,score,airport_seed) VALUES ('{player_name}',{player_score},LAST_INSERT_ID());"
         cursor.execute(sql_save)  # splitting the saving command into 2 because database is funky
         return "success"
     except mysql.connector.errors.DatabaseError as e:
@@ -65,7 +66,7 @@ def leaderboard_save_used(info,player_use_seed):
         player_name=stuff[0]
         player_score=stuff[2]
         cursor = connection.cursor()
-        sql_save = (f"INSERT INTO player (NAME,score,airport_seed) VALUES ('{player_name}',{player_score},{player_use_seed});")
+        sql_save = f"INSERT INTO player (NAME,score,airport_seed) VALUES ('{player_name}',{player_score},{player_use_seed});"
         cursor.execute(sql_save)  # saving player information into database
         return "success"
     except mysql.connector.errors.DatabaseError as e:
