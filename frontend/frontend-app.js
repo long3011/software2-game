@@ -6,7 +6,7 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 //display map DONT TOUCH!
 
-//Because of how js behave, i have to merge manu function together
+//Because of how js behave, I have to merge manu function together
 //I apologize to anyone in the future that have to work on this code
 
 let marker = L.marker([60.3172, 24.963301]).addTo(map);
@@ -32,6 +32,7 @@ async function loadSave(player_id){
   const response = await fetch(`http://127.0.0.1:8000/loadSave/${player_id}`);
   const data=await response.json();
   let airports
+  console.log(data)
   for(let playerInfo in data){
     let thing=document.createElement('p')
     thing.id='property'
@@ -41,6 +42,11 @@ async function loadSave(player_id){
       thing.innerText='Airports left:'
       stuff.innerText=Object.keys(data[playerInfo]).length
       airports=data[playerInfo]
+    } else if(playerInfo==='Position') {
+      thing.innerText='Current Airport:'
+      stuff.innerText=data[playerInfo][1]
+      marker.remove();
+      marker= L.marker([data[playerInfo][3],data[playerInfo][4]]).addTo(map);
     } else {
       thing.innerText=playerInfo+':'
       stuff.innerText=data[playerInfo]
@@ -54,9 +60,9 @@ async function loadSave(player_id){
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5,
-      radius: 1000
+      radius: 3000
       }).addTo(map);
-      circle[airport].on('click', function(){flyDestination(airport,coords,circle)});
+      circle[airport].on('click', function(){flyDestination(airport,coords)});
   }}
 async function loadLeaderboard(player_id){
   let difficulty=0
@@ -86,6 +92,11 @@ async function loadLeaderboard(player_id){
       thing.innerText='Airports left:'
       stuff.innerText=Object.keys(data[playerInfo]).length
       airports=data[playerInfo]
+    } else if(playerInfo==='Position') {
+      thing.innerText='Current Airport:'
+      stuff.innerText=data[playerInfo][1]
+      marker.remove();
+      marker= L.marker([data[playerInfo][3],data[playerInfo][4]]).addTo(map);
     } else {
       thing.innerText=playerInfo+':'
       stuff.innerText=data[playerInfo]
@@ -98,9 +109,9 @@ async function loadLeaderboard(player_id){
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
-    radius: 1000
+    radius: 3000
     }).addTo(map);
-    circle[airport].on('click', function(){flyDestination(airport,coords,circle)});
+    circle[airport].on('click', function(){flyDestination(airport,coords)});
   }}
 async function newGame(){
   let difficulty=0
@@ -129,6 +140,11 @@ async function newGame(){
       thing.innerText='Airports left:'
       stuff.innerText=Object.keys(data[playerInfo]).length
       airports=data[playerInfo]
+    } else if(playerInfo==='Position') {
+      thing.innerText='Current Airport:'
+      stuff.innerText=data[playerInfo][1]
+      marker.remove();
+      marker= L.marker([data[playerInfo][3],data[playerInfo][4]]).addTo(map);
     } else {
       thing.innerText=playerInfo+':'
       stuff.innerText=data[playerInfo]
@@ -144,7 +160,7 @@ async function newGame(){
     fillOpacity: 0.5,
     radius: 3000
     }).addTo(map);
-    circle[airport].on('click', function(){flyDestination(airport,coords,)});
+    circle[airport].on('click', function(){flyDestination(airport,coords)});
   }}
 function flyDestination(airport_id,coords){
   marker.remove();
@@ -153,42 +169,55 @@ function flyDestination(airport_id,coords){
   flyTo(airport_id);
 }
 async function mainScreen(option){
-  if(option==='leaderboard'||option=== 'personal'){
-  const response = await fetch(`http://127.0.0.1:8000/mainScreen/${option}`);
-  const data = await response.json();
-    if(option=== 'leaderboard'){
-      dialog.innerHTML='';
+  if(option==='leaderboard'||option=== 'personal') {
+    const response = await fetch(`http://127.0.0.1:8000/mainScreen/${option}`);
+    const data = await response.json();
+    if (option === 'leaderboard') {
+      dialog.innerHTML = '';
       dialog.appendChild(span1);
-      for(let i=0; i<data.content.length;i++){
-        let item=document.createElement('div');
-        let name=document.createElement('p');name.innerText=data.content[i][0];
-        let score=document.createElement('p');score.innerText=data.content[i][1];
-        let list=document.createElement('p');list.innerText=data.content[i][2];
-        item.appendChild(name);item.appendChild(score);item.appendChild(list);
-        item.addEventListener('click',()=>{loadLeaderboard(i+1)})
+      for (let i = 0; i < data.content.length; i++) {
+        let item = document.createElement('div');
+        let name = document.createElement('p');
+        name.innerText = data.content[i][0];
+        let score = document.createElement('p');
+        score.innerText = data.content[i][1];
+        let list = document.createElement('p');
+        list.innerText = data.content[i][2];
+        item.appendChild(name);
+        item.appendChild(score);
+        item.appendChild(list);
+        item.addEventListener('click', () => {loadLeaderboard(i + 1)})
         dialog.appendChild(item);
-      dialog.showModal()
+        dialog.showModal()
       }
-    } else if (option=== 'personal') {
+    } else if (option === 'personal') {
       dialog.innerHTML = '';
       dialog.appendChild(span1);
       for (let i = 0; i < Object.keys(data.content).length; i++) {
-        let item = document.createElement('div')
-        let content = document.createElement('p');
-        content.innerText = data.content[i + 1][0] + ' | Difficulty:' +
-            data.content[i + 1][1] + ' | Balance: ' + data.content[i + 1][2] +
-            ' | Airports Left:' + Object.keys(data.content[i + 1][3]).length +
-            ' | Fuel:' + data.content[i + 1][5] + ' | Hints:' +
-            data.content[i + 1][6] + ' | CO2:' + data.content[i + 1][7];
-        item.appendChild(content);
-        item.addEventListener('click', function(){loadSave(i+1); })
-        dialog.appendChild(item)
+        if (data.content[i + 1][0] === 'None') {
+          let item = document.createElement('div')
+          let content = document.createElement('p');
+          content.innerText = 'There is no saves yet';
+          item.appendChild(content);
+          dialog.appendChild(item)
+        } else {
+          let item = document.createElement('div')
+          let content = document.createElement('p');
+          content.innerText = data.content[i + 1][0] + ' | Difficulty:' +
+              data.content[i + 1][1] + ' | Balance: ' + data.content[i + 1][2] +
+              ' | Airports Left:' + Object.keys(data.content[i + 1][3]).length +
+              ' | Fuel:' + data.content[i + 1][6] + ' | Hints:' +
+              data.content[i + 1][7] + ' | CO2:' + data.content[i + 1][8];
+          item.appendChild(content);
+          item.addEventListener('click', function() {loadSave(i + 1); })
+          dialog.appendChild(item)
+        }
+        dialog.showModal()
       }
-      dialog.showModal()
     }
-  } else if (option=== 'newGame'){
-    newGame();
-  }
+  } else if (option === 'newGame') {
+      newGame();
+    }
 }
 async function flyTo(airport_id){
   let points=document.querySelector('#Points');
@@ -291,7 +320,7 @@ fuelButton.addEventListener('click',function(){shop('fuel')});
 quit.addEventListener('click', quiting);
 useHintButton.addEventListener('click',hint)
 
-//make difficulty into a pop-up dialog
+//make difficulty into a pop-up dialog   || I tried but cant find a solution
+//Known bugs: after loading up saves in the same instances travelling to a airport will not remove a cỉrcle
 //make everything pretty
-//make saves to have only 3 slots, and each slots is consistent
 //further implementation asking group member

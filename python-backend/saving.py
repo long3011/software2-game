@@ -5,7 +5,7 @@ import mysql.connector
 from player import Player
 from airport import Airport
 
-def personal_save(obj):
+def personal_save(obj,player_id):
     try:
         arr=obj.information()
         if os.stat("save.json").st_size != 0:
@@ -13,7 +13,10 @@ def personal_save(obj):
                 info_save = json.load(f)
         else:
             info_save = {}
-        info_save[len(info_save)+1]=arr
+        if player_id is None:
+            info_save[len(info_save)+1]=arr
+        else:
+            info_save[player_id]=arr
         with open('save.json', 'w') as f:
             json.dump(info_save, f)
         return "success"
@@ -27,7 +30,7 @@ def personal_load():
                 info = json.load(f)
             return info
         else:
-            return "There is no saves yet"
+            return {"1":["None"]}
     except FileNotFoundError as e:
         return e
 def saves_load(result):
@@ -39,7 +42,8 @@ def saves_load(result):
     for i in result[4]:
         things = result[4][i]
         ap_travelled[i]=Airport(things[0], things[1], things[2], things[3], things[4], things[5], things[6])
-    info = Player(result[0], result[1], result[2], ap_list, ap_travelled, result[5], result[6], result[7])
+    player_position=Airport(result[5][0], result[5][1], result[5][2], result[5][3], result[5][4], result[5][5], result[5][6])
+    info = Player(result[0], result[1], result[2], ap_list, ap_travelled,player_position, result[6], result[7], result[8])
     return info
 def leaderboard_save(info):
     try:

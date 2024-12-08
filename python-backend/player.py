@@ -2,12 +2,12 @@ from geopy import distance
 from airport import *
 
 class Player:
-    def __init__(self, name, difficulty, money, airport_list, airport_travelled=None, fuel=1000, hints=3, co2=0):
+    def __init__(self, name, difficulty, money, airport_list, airport_travelled=None, position=start_position, fuel=1000, hints=3, co2=0):
         if airport_travelled is None:
             airport_travelled = {}
         self.airport_travelled = airport_travelled
         self.name = name
-        self.position = start_position
+        self.position = position
         self.difficulty = difficulty
         self.money = money
         self.airport_list = airport_list
@@ -53,7 +53,8 @@ class Player:
             airport_left[i]=self.airport_list[i].airport_info()
         for i in self.airport_travelled:
             airport_travelled[i]=self.airport_travelled[i].airport_info()
-        return [self.name, self.difficulty, self.money, airport_left,airport_travelled, round(self.fuel,1), self.hints, round(self.co2,1)] #using round because computer sometime become quirky and output weird decimals
+        player_position=self.position.airport_info()
+        return [self.name, self.difficulty, self.money, airport_left,airport_travelled,player_position, round(self.fuel,1), self.hints, round(self.co2,1)] #using round because computer sometime become quirky and output weird decimals
     def leaderboard(self):
         total_airport = []
         for i in self.airport_list:
