@@ -232,6 +232,7 @@ async function flyTo(airport_id){
   let remaining = document.querySelector('#Airports');
   let fuel =document.querySelector('#Fuel');
   let co2=document.querySelector('#Co2')
+  let position=document.querySelector('#Position');
   let response=await fetch (`http://127.0.0.1:8000/flyTo/${airport_id}`)
   let data=await response.json()
   planeSound.play()
@@ -241,6 +242,7 @@ async function flyTo(airport_id){
     remaining.innerText = data['Remaining'];
     if (parseInt(data['Remaining']) === 0) {won()}
     else {
+      position.innerText=data['Position'][1]
       alert(`You flew ${data['Distance']}km`)
       points.innerText = data['Points'];
       co2.innerText = data['Co2']

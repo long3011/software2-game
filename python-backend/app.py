@@ -86,7 +86,8 @@ def fly_to(airport_id):     #innitiate flying to airport, id refer to key of air
         'Points':round(points,2),
         'Remaining':remaining,
         'Fuel':round(fuel,2),
-        'Co2':round(player.co2_emitted(),2)
+        'Co2':round(player.co2_emitted(),2),
+        'Position':player.player_position()
     }
     return jsonify(packet)
 @app.route('/shop/<item>')

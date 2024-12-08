@@ -76,3 +76,5 @@ class Player:
         return self.hints
     def co2_emitted(self):
         return self.co2
+    def player_position(self):
+        return self.position.airport_info()
