@@ -175,6 +175,14 @@ async function mainScreen(option){
     if (option === 'leaderboard') {
       dialog.innerHTML = '';
       dialog.appendChild(span1);
+      if (data.content==="None"){
+        let item = document.createElement('div');
+        let status = document.createElement('p');
+        status.innerText="There is no leaderboard information";
+        item.appendChild(status);
+        dialog.appendChild(status);
+        dialog.showModal();
+      }else{
       for (let i = 0; i < data.content.length; i++) {
         let item = document.createElement('div');
         let name = document.createElement('p');
@@ -189,7 +197,7 @@ async function mainScreen(option){
         item.addEventListener('click', () => {loadLeaderboard(i + 1)})
         dialog.appendChild(item);
         dialog.showModal()
-      }
+      }}
     } else if (option === 'personal') {
       dialog.innerHTML = '';
       dialog.appendChild(span1);
