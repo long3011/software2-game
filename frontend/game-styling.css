@@ -128,18 +128,28 @@ dialog::backdrop {
 }
 #newGame{
     font-size: 300%;
+    color: white;
 }
 #newGame a:hover{
     background-color: #734e1b;
 }
 #saves{
     font-size: 300%;
+    color: white;
 }
 #saves a:hover{
     background-color: #734e1b;
 }
+.mainMenu{
+    height: 100%;
+    background-image: url('main-screen-background.jpg');
+    background-size: cover;
+    background-position: center;
+
+}
 .mainMenu #leaderboard{
     font-size: 300%;
+    color: white;
 }
 .mainMenu #leaderboard a:hover{
     background-color: #734e1b;
