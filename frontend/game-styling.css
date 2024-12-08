@@ -35,7 +35,7 @@ header #quit a{
     justify-content: space-evenly;
 }
 header #quit:hover{
-    background-color: #734e1b;
+    background-color: #dc8300;
 }
 header #hint{
     display:flex;
@@ -51,7 +51,7 @@ header #hint a{
     line-height:340%;
 }
 header #hint a:hover{
-    background-color: #734e1b;
+    background-color: #dc8300;
 }
 header nav {
     width: 50%;
@@ -70,7 +70,7 @@ header li {
     width:50%;
 }
 header li:hover{
-    background-color: #734e1b;
+    background-color: #dc8300;
 }
 header li p {
     text-align: center;
@@ -101,7 +101,7 @@ dialog div {
     margin:8px
 }
 dialog div:hover {
-    background-color: #734e1b;
+    background-color: #dc8300;
 }
 dialog div p {
     margin: 0;
@@ -130,29 +130,30 @@ dialog::backdrop {
     font-size: 300%;
     color: white;
 }
-#newGame a:hover{
-    background-color: #734e1b;
+#newGame:hover{
+    background-color: #dc8300;
 }
 #saves{
     font-size: 300%;
     color: white;
 }
-#saves a:hover{
-    background-color: #734e1b;
+#saves:hover{
+    background-color: #dc8300;
 }
 .mainMenu{
+    display: flex;
     height: 100%;
     background-image: url('main-screen-background.jpg');
     background-size: cover;
     background-position: center;
-
+    justify-content: space-evenly;
 }
 .mainMenu #leaderboard{
     font-size: 300%;
     color: white;
 }
-.mainMenu #leaderboard a:hover{
-    background-color: #734e1b;
+.mainMenu #leaderboard:hover{
+    background-color: #dc8300;
 }
 dialog span {
   position: absolute;

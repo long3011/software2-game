@@ -26,6 +26,7 @@ const planeSound=new Audio('airplane sound.mp3')
 let circle= {}
 async function loadSave(player_id){
   mainMenu.classList.toggle('no_screen')
+  mainMenu.classList.toggle('mainMenu');
   header.classList.toggle('no_screen')
   container.classList.toggle('no_screen');
   dialog.close()
@@ -79,6 +80,7 @@ async function loadLeaderboard(player_id){
   container.classList.toggle('no_screen');
   dialog.close()
   mainMenu.classList.toggle('no_screen')
+  mainMenu.classList.toggle('mainMenu');
   const response = await fetch(
         `http://127.0.0.1:8000/loadLeaderboard/${name}/${difficulty}/${player_id}`);
   const data=await response.json()
@@ -125,6 +127,7 @@ async function newGame(){
     }
   }
   mainMenu.classList.toggle('no_screen')
+  mainMenu.classList.toggle('mainMenu');
   header.classList.toggle('no_screen')
   container.classList.toggle('no_screen');
   const response = await fetch(
@@ -304,6 +307,7 @@ function lost(){
     marker= L.marker([60.3172, 24.963301]).addTo(map);
     aside.innerHTML=''
     mainMenu.classList.toggle('no_screen')
+    mainMenu.classList.toggle('mainMenu');
     container.classList.toggle('no_screen')
     header.classList.toggle('no_screen')
 }
@@ -316,6 +320,7 @@ function won(){
     marker= L.marker([60.3172, 24.963301]).addTo(map);
     aside.innerHTML=''
     mainMenu.classList.toggle('no_screen')
+    mainMenu.classList.toggle('mainMenu');
     container.classList.toggle('no_screen')
     header.classList.toggle('no_screen')
 }
