@@ -128,7 +128,7 @@ async function newGame(){
   }
   mainMenu.classList.toggle('no_screen')
   mainMenu.classList.toggle('mainMenu');
-  header.classList.toggle('no_screen')
+  header.classList.toggle('no_screen');
   container.classList.toggle('no_screen');
   const response = await fetch(
         `http://127.0.0.1:8000/mainGame/${name}/${difficulty}`);
@@ -280,6 +280,7 @@ async function stop(status){
   marker= L.marker([60.3172, 24.963301]).addTo(map);
   aside.innerHTML=''
   mainMenu.classList.toggle('no_screen')
+  mainMenu.classList.toggle('mainMenu')
   container.classList.toggle('no_screen')
   header.classList.toggle('no_screen')
 }
@@ -335,7 +336,7 @@ fuelButton.addEventListener('click',function(){shop('fuel')});
 quit.addEventListener('click', quiting);
 useHintButton.addEventListener('click',hint)
 
-//make difficulty into a pop-up dialog   || I tried but cant find a solution
-//Known bugs: after loading up saves in the same instances travelling to a airport will not remove a cỉrcle
+//make difficulty into a pop-up dialog   ||    I tried but cant find a solution
+//Known bugs: after loading up saves in the same instances travelling to airport will not remove a cỉrcle
 //make everything pretty
 //further implementation asking group member

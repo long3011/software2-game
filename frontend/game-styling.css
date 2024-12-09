@@ -152,6 +152,7 @@ dialog::backdrop {
     text-align: center;
     font-size: 400%;
     margin:0;
+    padding: 0 0 0 8px;
 }
 .mainMenu #nav{
     padding: 2rem 0 0 0;
