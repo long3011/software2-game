@@ -141,11 +141,22 @@ dialog::backdrop {
     background-color: #dc8300;
 }
 .mainMenu{
-    display: flex;
     height: 100%;
     background-image: url('main-screen-background.jpg');
     background-size: cover;
     background-position: center;
+    justify-content: space-evenly;
+}
+.mainMenu h1{
+    color: #ffffff;
+    text-align: center;
+    font-size: 400%;
+    margin:0;
+}
+.mainMenu #nav{
+    padding: 2rem 0 0 0;
+    display: flex;
+    width: 100%;
     justify-content: space-evenly;
 }
 .mainMenu #leaderboard{
